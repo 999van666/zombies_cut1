@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Back {
 	
-	Image img1 = new ImageIcon("menu/a1.gif").getImage();
+	Image img1 = new ImageIcon("menu/anigif2.gif").getImage();
 	
 	Image img2 = new ImageIcon("maps/main_island/img/main_island_atlas.png").getImage();
 	

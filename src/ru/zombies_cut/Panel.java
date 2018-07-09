@@ -30,6 +30,8 @@ public class Panel extends JPanel implements ActionListener {
 	
 	Timer mainTimer = new Timer (30, this);
 	Back back = new Back();
+	Menu menu = new Menu();
+
 		 public Panel() {
 			 super();
 			 setFocusable(true);
@@ -42,7 +44,10 @@ public class Panel extends JPanel implements ActionListener {
 		 public void actionPerformed(ActionEvent e) {
 			 if (state.equals(STATES.MENUE)) {
 				 back.draw(g);
+				 menu.draw(g);
 				 gameDraw();
+	
+				 
 			 }
 		     if (state.equals(STATES.PLAY)) {
 		    	 gameRender();
