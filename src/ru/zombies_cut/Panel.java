@@ -12,10 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Panel extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	public static int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 	
@@ -30,81 +27,66 @@ public class Panel extends JPanel implements ActionListener {
 	
 	Timer mainTimer = new Timer (30, this);
 	Back back = new Back();
+	Player player=new Player();
 	Menue menue = new Menue();
 
 		 public Panel() {
 			 super();
 			 setFocusable(true);
 			 requestFocus();
+			 mainTimer.start();
 			 image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 			 g = (Graphics2D) image.getGraphics();
-			 mainTimer.start();
-			
+			 
+			 addMouseListener(new Listeners());
+			 addKeyListener(new Listeners());
+			 addMouseMotionListener(new Listeners());
+			 
 		 }
 		 public void actionPerformed(ActionEvent e) {
 			 if (state.equals(STATES.MENUE)) {
+				 
 				 back.draw(g);
 				 menue.draw(g);
-				 if (Panel.mouseX>menue.getX()&& Panel.mouseX < menue.getX()+menue.getW()&& Panel.mouseY> (menue.getY()+140)*0 && Panel.mouseY< (menue.getY()+140)*0 + menue.getH()){
-			                         menue.list[0]="new user";
-			                         menue.user_m=true;
-						 }
-				 else { 
-				      menue.list[0]=String.valueOf("Новый Игрок"); 
-				      menue.user_m=false; 
-				             }
-				 
-				 if (Panel.mouseX>menue.getX()&& Panel.mouseX < menue.getX()+menue.getW()&& Panel.mouseY> (menue.getY()+140)*1 && Panel.mouseY< (menue.getY()+140)*1 + menue.getH()){
-			                         menue.list[1]="games";
-			                         menue.game_m=true;
-			     if (Menue.click) {
-			                        	 state = STATES.PLAY;
-			                        	 Menue.click=false;
-			                         }
-						 }
-				 else { 
-				      menue.list[1]=String.valueOf("Играть"); 
-				      menue.game_m=false; 
-				             }
-				 
-				 if (Panel.mouseX>menue.getX()&& Panel.mouseX<menue.getX()+menue.getW()&& Panel.mouseY>(menue.getY()+140)*2 && Panel.mouseY<(menue.getY()+140)*2+menue.getH()){
-							 menue.list[2]="settings";
-						 }
-				 else { 
-				            	 menue.list[2]=String.valueOf("Настройки"); 
-				            	 
-				             }
-				 
-				 if (Panel.mouseX>menue.getX()&& Panel.mouseX<menue.getX()+menue.getW() && Panel.mouseY>(menue.getY()+140)*3 && Panel.mouseY<(menue.getY()+140)*3+menue.getH()){
-							 menue.list[3]="Help";
-						 }
-				 else { 
-				            	 menue.list[3]=String.valueOf("Помощь"); 
-				            	 
-				             }
-				 
-				 if (Panel.mouseX>menue.getX()&& Panel.mouseX<menue.getX()+menue.getW() && Panel.mouseY>(menue.getY()+140)*4 && Panel.mouseY<(menue.getY()+140)*4+menue.getH()){
-							 menue.list[4]="Exit";
-				             if (Menue.click)
-	                         {
-	                        	System.exit(0);
-	                         }
-						 }
-				 else { 
-				            	 menue.list[4]=String.valueOf("Выход"); 
-				            	 
-				             }
+				 moveButt(menue.button1);
+				 moveButt(menue.button2);
+				 moveButt(menue.button3);
+				 moveButt(menue.button4);
+				 moveButt(menue.button5);
 				 gameDraw();	 
 			 }
-		 
+
 		     if (state.equals(STATES.PLAY)) {
+		    	 gameUpdate();
 		    	 gameRender();
 		    	 gameDraw();
 		     }
 		 }
-		  
+		  private void moveButt(Menue.ButtMenue e) {
+			  if (  mouseX>e.getX() && mouseX<e.getX()+e.getW()  &&
+						 mouseY>e.getY() && mouseY<e.getY()+e.getH()) {
+				          e.s="menu/ред.png";
+				          if (e.equals(menue.button1)) {e.f="new user";}
+				          if (e.equals(menue.button2)) {e.f="game";}
+				          if (e.equals(menue.button3)) {e.f="settings";}
+				          if (e.equals(menue.button4)) {e.f="specification";}
+				          if (e.equals(menue.button5)) {e.f="exit";}}
+			  
+					 else {e.s="menu/ser.png";
+					  if (e.equals(menue.button1)) {e.f="Новый игрок";}
+			          if (e.equals(menue.button2)) {e.f="Играть";}
+			          if (e.equals(menue.button3)) {e.f="Настройки";}
+			          if (e.equals(menue.button4)) {e.f="Правила";}
+			          if (e.equals(menue.button5)) {e.f="Выход";}}
+				
+		  }
 		private void gameRender() {
 			 back.draw(g);
+			 player.draw(g);
+		}
+	
+		private void gameUpdate() {
+			player.update();
 			
 		}
 		private void gameDraw() {

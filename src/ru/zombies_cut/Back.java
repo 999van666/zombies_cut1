@@ -1,7 +1,5 @@
 package ru.zombies_cut;
 
-import java.awt.Graphics2D;
-
 import javax.swing.*;
 
 import java.awt.*;
