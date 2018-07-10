@@ -27,13 +27,21 @@ public class Listeners implements MouseListener, KeyListener, MouseMotionListene
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		if (e.getButton() == MouseEvent.BUTTON1){
+			if (Panel.state==Panel.STATES.MENUE){
+				Menue.click=true;
+			}
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		if (e.getButton() == MouseEvent.BUTTON1){
+			if (Panel.state==Panel.STATES.MENUE){
+				Menue.click=false;
+			}
+		}
 	}
 
 	@Override
@@ -64,6 +72,9 @@ public class Listeners implements MouseListener, KeyListener, MouseMotionListene
 		}
 		if(key==KeyEvent.VK_D){
 			Player.up=true;
+		}
+		if(key==KeyEvent.VK_ESCAPE){
+			if(Panel.state==Panel.STATES.PLAY) Panel.state = Panel.STATES.MENUE;
 		}
 	}
 

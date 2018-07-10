@@ -14,7 +14,7 @@ public class Back {
 		
 		if(Panel.state.equals(Panel.STATES.MENUE)) g.drawImage(img1,(int)0,(int)0,null);
 		
-		if(Panel.state.equals(Panel.STATES.PLAY)) g.drawImage(img2,(int)0,(int)0,null);
+		if(Panel.state.equals(Panel.STATES.PLAY))  g.drawImage(img2,(int)0,(int)0,null);
         
 		
 	}
