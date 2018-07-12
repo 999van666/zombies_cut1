@@ -23,7 +23,6 @@ public class Panel extends JPanel implements ActionListener {
 	//активные страницы меню
 	public static boolean buttmenue =true;
 	public static boolean settmenue =false;
-	public static boolean controlmenue=false;
 
     public static boolean easy=true;
     public static boolean norm=false;
@@ -31,11 +30,10 @@ public class Panel extends JPanel implements ActionListener {
     public static boolean aud=true;
     public static boolean control=true;
 
-    public static ControlMenue c_menue;
 
 	public static enum STATES{MENUE,PLAY}//обЪявляем перечесление
 	public static STATES state = STATES.MENUE;//изначальная работа с вкл. меню
-	
+
 	private BufferedImage image;
 	private Graphics2D g;
 
@@ -52,7 +50,6 @@ public class Panel extends JPanel implements ActionListener {
 			 requestFocus();
 			 mainTimer.start();
 
-			 c_menue=new ControlMenue();
 
 			 image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 			 g = (Graphics2D) image.getGraphics();
@@ -66,7 +63,6 @@ public class Panel extends JPanel implements ActionListener {
 			 buttons.add(new SettMenue(600,190,100,37,"","выкл"));
 
 			 buttons.add(new SettMenue(300,345,100,37,"","стандарт"));
-			 buttons.add(new SettMenue(600,345,100,37,"","пользоват"));
 
 			 buttons.add(new SettMenue(970,570,100,37,"","назад"));
 
@@ -75,32 +71,23 @@ public class Panel extends JPanel implements ActionListener {
 			 addMouseListener(new Listeners());
 			 addKeyListener(new Listeners());
 			 addMouseMotionListener(new Listeners());
-			 
+
 		 }
 		 public void actionPerformed(ActionEvent e) {
 			 if (state.equals(STATES.MENUE)) {
-				 
-				 back.draw(g);
-				 if(buttmenue) {
-					 menue.draw(g);
-					 moveButt(menue.button1);
-					 moveButt(menue.button2);
-					 moveButt(menue.button3);
-					 moveButt(menue.button4);
-					 moveButt(menue.button5);
-				 }
+                 back.draw(g);
+                 if (buttmenue) {
+                     menue.draw(g);
+                     menue.moveButt(menue.button1);
+                     menue.moveButt(menue.button2);
+                     menue.moveButt(menue.button3);
+                 }
+
 				 if(settmenue){
                  moveSettButt();
 				 }
-                 if(controlmenue){
-                     c_menue.moveContr(c_menue.button_up);
-                     c_menue.moveContr(c_menue.button_d);
-                     c_menue.moveContr(c_menue.button_l);
-                     c_menue.moveContr(c_menue.button_r);
-                     c_menue.moveContr(c_menue.button_f);
-                     c_menue.moveContr(c_menue.button_k);
-                 }
-				 gameDraw();
+
+                 gameDraw();
 			 }
 
 		     if (state.equals(STATES.PLAY)) {
@@ -109,37 +96,7 @@ public class Panel extends JPanel implements ActionListener {
 		    	 gameDraw();
 		     }
 		 }
-		  private void moveButt(Menue.ButtMenue e) {
-			  if (  mouseX>e.getX() && mouseX<e.getX()+e.getW()  &&
-						 mouseY>e.getY() && mouseY<e.getY()+e.getH()) {
-				          e.s="menu/ред.png";
-				          if (e.equals(menue.button1)) {e.f="new user";}
-				          if (e.equals(menue.button2)) {e.f="game";
-				          if(Menue.click){
-				          	state=STATES.PLAY;
-				          	Menue.click=false;
-						  }
 
-				          }
-				          if (e.equals(menue.button3)) {e.f="settings";
-				          if (Menue.click){
-				          Panel.settmenue=true;
-							  Panel.buttmenue=false;}
-						  }
-				          if (e.equals(menue.button4)) {e.f="specification";}
-				          if (e.equals(menue.button5)) {e.f="exit";
-				          if (Menue.click){
-				          System.exit(0);}
-						  }}
-			  
-					 else {e.s="menu/ser.png";
-					  if (e.equals(menue.button1)) {e.f="Новый игрок";}
-			          if (e.equals(menue.button2)) {e.f="Играть";}
-			          if (e.equals(menue.button3)) {e.f="Настройки";}
-			          if (e.equals(menue.button4)) {e.f="Правила";}
-			          if (e.equals(menue.button5)) {e.f="Выход";}}
-				
-		  }
 	private void moveSettButt() {
 		for (int i = 0; i < buttons.size(); i++) {
 			buttons.get(i).draw(g);
@@ -182,21 +139,11 @@ public class Panel extends JPanel implements ActionListener {
                 if(i==5){
                     if(Menue.click){
                         control=true;
-                        c_menue.button_up.f="ввехр";
-                        c_menue.button_d.f="вниз";
-                        c_menue.button_l.f="влево";
-                        c_menue.button_r.f="вправо";
-                        c_menue.button_f.f="рубить";
+
                     }
                 }
-                if(i==6){
-                    if(Menue.click){
-                        control=true;
-                        settmenue=false;
-                        controlmenue=false;
 
-                    } }
-                if(i==7){
+                if(i==6){
                     if(Menue.click){
                         settmenue=false;
                         buttmenue=true;
